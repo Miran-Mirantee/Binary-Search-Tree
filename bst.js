@@ -7,8 +7,101 @@ class Node {
 }
 
 class Tree {
-  constructor() {
-    this.root = null;
+  constructor(root) {
+    this.root = root;
+  }
+
+  insert(data) {
+    let root = this.root;
+    let temp;
+    const newNode = new Node(data);
+    while (root !== null) {
+      temp = root;
+      if (newNode.data < root.data) {
+        root = root.left;
+      } else {
+        root = root.right;
+      }
+    }
+    if (newNode.data < temp.data) {
+      temp.left = newNode;
+    } else {
+      temp.right = newNode;
+    }
+  }
+
+  delete(data) {
+    let root = this.root;
+    let temp;
+    while (root !== null) {
+      if (root.data === data) {
+        break;
+      }
+      temp = root;
+      if (data < root.data) {
+        root = root.left;
+      } else {
+        root = root.right;
+      }
+    }
+    // if deleting a leaf
+    if (root && root.left === null && root.right === null) {
+      if (data < temp.data) {
+        temp.left = null;
+      } else {
+        temp.right = null;
+      }
+      return;
+    }
+    // if root has one child
+    if (root && (root.left === null || root.right === null)) {
+      if (root.left !== null) {
+        root = root.left;
+      } else {
+        root = root.right;
+      }
+
+      if (root.data < temp.data) {
+        temp.left = root;
+      } else {
+        temp.right = root;
+      }
+      return;
+    }
+    // if root has two childs
+    if (root && root.left !== null && root.right !== null) {
+      let tempL = root.left;
+      let tempR = root.right;
+      let temp2;
+
+      root = root.right;
+      while (root.left !== null) {
+        temp2 = root;
+        root = root.left;
+      }
+      let rootChild = root.right;
+
+      // if the first right child is the lowest
+      if (root.data !== tempR.data) {
+        temp2.left = null;
+        root.right = tempR;
+      }
+      root.left = tempL;
+
+      if (data === this.root.data) {
+        this.root = root;
+        temp2.left = rootChild;
+      } else if (root.data < temp.data) {
+        temp.left = root;
+      } else {
+        temp.right = root;
+      }
+
+      return;
+    }
+    // if cannot find node
+    console.log("There's no such node");
+    return;
   }
 }
 
@@ -74,6 +167,16 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 320];
+const arr2 = [50, 30, 70, 20, 40, 60, 80, 32, 65, 75, 85, 34, 36];
 const root = buildTree(arr);
-prettyPrint(root);
+const root2 = buildTree(arr2);
+const tree = new Tree(root);
+const tree2 = new Tree(root2);
+
+// prettyPrint(tree.root);
+// console.log("----------------------------");
+// tree.delete(8);
+// prettyPrint(tree.root);
+
+prettyPrint(tree2.root);
