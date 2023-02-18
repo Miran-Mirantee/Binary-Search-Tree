@@ -107,25 +107,27 @@ class Tree {
   find(data) {}
 
   levelOrder(func) {
-    // if no function given
-    if (func === undefined) {
-      const queue = [];
-      const arr = [];
-      let node = this.root;
-      if (node === null) return;
-      queue.push(node);
-      while (queue.length != 0) {
-        const current = queue.shift();
+    const queue = [];
+    const arr = [];
+    let node = this.root;
+    if (node === null) return;
+    queue.push(node);
+    while (queue.length != 0) {
+      const current = queue.shift();
+      if (func !== undefined) {
+        func(current);
+      } else {
         arr.push(current.data);
-        if (current.left !== null) {
-          queue.push(current.left);
-        }
-        if (current.right !== null) {
-          queue.push(current.right);
-        }
       }
-      return arr;
+
+      if (current.left !== null) {
+        queue.push(current.left);
+      }
+      if (current.right !== null) {
+        queue.push(current.right);
+      }
     }
+    return arr;
   }
 }
 
@@ -204,8 +206,8 @@ const tree2 = new Tree(root2);
 // prettyPrint(tree.root);
 
 prettyPrint(tree2.root);
-// const order = tree2.levelOrder(() => {
-//   console.log("test");
-// });
-const order = tree2.levelOrder();
-console.log(order);
+const withFunc = tree2.levelOrder((e) => {
+  console.log(e.data);
+});
+const noFunc = tree2.levelOrder();
+console.log(noFunc);
