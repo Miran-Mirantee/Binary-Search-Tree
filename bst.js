@@ -104,7 +104,14 @@ class Tree {
     return;
   }
 
-  find(data) {}
+  find(data) {
+    const _getNode = (node) => {
+      if (node.data === data) return node;
+    };
+    const node = this.levelOrder(_getNode);
+    if (node.length === 0) return null;
+    return node;
+  }
 
   levelOrder(func) {
     const queue = [];
@@ -115,11 +122,11 @@ class Tree {
     while (queue.length != 0) {
       const current = queue.shift();
       if (func !== undefined) {
-        func(current);
+        const value = func(current);
+        if (value) return value;
       } else {
         arr.push(current.data);
       }
-
       if (current.left !== null) {
         queue.push(current.left);
       }
@@ -206,8 +213,11 @@ const tree2 = new Tree(root2);
 // prettyPrint(tree.root);
 
 prettyPrint(tree2.root);
-const withFunc = tree2.levelOrder((e) => {
-  console.log(e.data);
-});
+// const withFunc = tree2.levelOrder((e) => {
+//   console.log(e.data);
+// });
 const noFunc = tree2.levelOrder();
 console.log(noFunc);
+
+const foundNode = tree2.find(80);
+console.log(foundNode);
