@@ -103,6 +103,30 @@ class Tree {
     console.log("There's no such node");
     return;
   }
+
+  find(data) {}
+
+  levelOrder(func) {
+    // if no function given
+    if (func === undefined) {
+      const queue = [];
+      const arr = [];
+      let node = this.root;
+      if (node === null) return;
+      queue.push(node);
+      while (queue.length != 0) {
+        const current = queue.shift();
+        arr.push(current.data);
+        if (current.left !== null) {
+          queue.push(current.left);
+        }
+        if (current.right !== null) {
+          queue.push(current.right);
+        }
+      }
+      return arr;
+    }
+  }
 }
 
 const removeDup = (arr) => {
@@ -180,3 +204,8 @@ const tree2 = new Tree(root2);
 // prettyPrint(tree.root);
 
 prettyPrint(tree2.root);
+// const order = tree2.levelOrder(() => {
+//   console.log("test");
+// });
+const order = tree2.levelOrder();
+console.log(order);
