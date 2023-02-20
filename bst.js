@@ -136,6 +136,45 @@ class Tree {
     }
     return arr;
   }
+
+  preOrder(func, node = this.root, arr = []) {
+    if (node === null) return;
+    if (func !== undefined) {
+      const value = func(node);
+      if (value) return value;
+    } else {
+      arr.push(node.data);
+    }
+    this.preOrder(func, node.left, arr);
+    this.preOrder(func, node.right, arr);
+    return arr;
+  }
+
+  inOrder(func, node = this.root, arr = []) {
+    if (node === null) return;
+    this.inOrder(func, node.left, arr);
+    if (func !== undefined) {
+      const value = func(node);
+      if (value) return value;
+    } else {
+      arr.push(node.data);
+    }
+    this.inOrder(func, node.right, arr);
+    return arr;
+  }
+
+  postOrder(func, node = this.root, arr = []) {
+    if (node === null) return;
+    this.postOrder(func, node.left, arr);
+    this.postOrder(func, node.right, arr);
+    if (func !== undefined) {
+      const value = func(node);
+      if (value) return value;
+    } else {
+      arr.push(node.data);
+    }
+    return arr;
+  }
 }
 
 const removeDup = (arr) => {
@@ -216,8 +255,16 @@ prettyPrint(tree2.root);
 // const withFunc = tree2.levelOrder((e) => {
 //   console.log(e.data);
 // });
-const noFunc = tree2.levelOrder();
-console.log(noFunc);
+// const noFunc = tree2.levelOrder();
+// console.log(noFunc);
 
-const foundNode = tree2.find(80);
-console.log(foundNode);
+// const foundNode = tree2.find(80);
+// console.log(foundNode);
+
+// tree2.preOrder((e) => {
+//   console.log(e);
+// });
+
+console.log(tree2.preOrder());
+console.log(tree2.inOrder());
+console.log(tree2.postOrder());
