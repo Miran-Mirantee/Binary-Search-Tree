@@ -175,6 +175,27 @@ class Tree {
     }
     return arr;
   }
+
+  height(node) {
+    if (node === null) return -1;
+    const left = this.height(node.left);
+    const right = this.height(node.right);
+    return Math.max(left, right) + 1;
+  }
+
+  depth(node, root = this.root) {
+    if (root === null) return -1;
+    let count = -1;
+    if (
+      root === node ||
+      (count = this.depth(node, root.left)) >= 0 ||
+      (count = this.depth(node, root.right)) >= 0
+    ) {
+      return count + 1;
+    }
+
+    return count;
+  }
 }
 
 const removeDup = (arr) => {
@@ -251,20 +272,18 @@ const tree2 = new Tree(root2);
 // tree.delete(8);
 // prettyPrint(tree.root);
 
+tree2.insert(100);
+tree2.insert(101);
+tree2.insert(102);
+tree2.insert(103);
+tree2.insert(104);
+tree2.insert(105);
+tree2.insert(19);
+tree2.insert(18);
+tree2.insert(17);
+tree2.insert(16);
+tree2.insert(15);
 prettyPrint(tree2.root);
-// const withFunc = tree2.levelOrder((e) => {
-//   console.log(e.data);
-// });
-// const noFunc = tree2.levelOrder();
-// console.log(noFunc);
 
-// const foundNode = tree2.find(80);
-// console.log(foundNode);
-
-// tree2.preOrder((e) => {
-//   console.log(e);
-// });
-
-console.log(tree2.preOrder());
-console.log(tree2.inOrder());
-console.log(tree2.postOrder());
+console.log(tree2.height(tree2.find(36)));
+console.log(tree2.depth(tree2.find(75)));
