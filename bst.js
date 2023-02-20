@@ -210,6 +210,12 @@ class Tree {
       console.log("The tree is balanced");
     }
   }
+
+  rebalance() {
+    const arr = this.levelOrder();
+    const newRoot = buildTree(arr);
+    this.root = newRoot;
+  }
 }
 
 const removeDup = (arr) => {
@@ -301,6 +307,12 @@ tree2.insert(16);
 tree2.insert(15);
 tree2.insert(14);
 tree2.insert(13);
+prettyPrint(tree2.root);
+tree2.isBalanced();
+
+// console.log(tree2.levelOrder());
+tree2.rebalance();
+tree2.insert(12);
 prettyPrint(tree2.root);
 tree2.isBalanced();
 // console.log(tree2.height(tree2.find(36)));
