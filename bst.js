@@ -196,6 +196,20 @@ class Tree {
 
     return count;
   }
+
+  isBalanced() {
+    const _checkBalance = (node) => {
+      const dif = Math.abs(this.height(node.left) - this.height(node.right));
+      if (dif > 1) {
+        console.log("The tree is not balanced");
+        return dif;
+      }
+    };
+    const result = this.levelOrder(_checkBalance);
+    if (result.length === 0) {
+      console.log("The tree is balanced");
+    }
+  }
 }
 
 const removeDup = (arr) => {
@@ -271,6 +285,8 @@ const tree2 = new Tree(root2);
 // console.log("----------------------------");
 // tree.delete(8);
 // prettyPrint(tree.root);
+prettyPrint(tree2.root);
+tree2.isBalanced();
 
 tree2.insert(100);
 tree2.insert(101);
@@ -283,7 +299,9 @@ tree2.insert(18);
 tree2.insert(17);
 tree2.insert(16);
 tree2.insert(15);
+tree2.insert(14);
+tree2.insert(13);
 prettyPrint(tree2.root);
-
-console.log(tree2.height(tree2.find(36)));
-console.log(tree2.depth(tree2.find(75)));
+tree2.isBalanced();
+// console.log(tree2.height(tree2.find(36)));
+// console.log(tree2.depth(tree2.find(75)));
