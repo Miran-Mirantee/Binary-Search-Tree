@@ -280,40 +280,40 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 320];
-const arr2 = [50, 30, 70, 20, 40, 60, 80, 32, 65, 75, 85, 34, 36];
-const root = buildTree(arr);
-const root2 = buildTree(arr2);
-const tree = new Tree(root);
-const tree2 = new Tree(root2);
+const createArr = (num) => {
+  const arr = [];
+  for (let i = 1; i < num; i++) {
+    arr.push(Math.round(Math.random() * 99 + 1));
+  }
+  return arr;
+};
 
-// prettyPrint(tree.root);
-// console.log("----------------------------");
-// tree.delete(8);
-// prettyPrint(tree.root);
-prettyPrint(tree2.root);
-tree2.isBalanced();
+const arr = createArr(16);
+const tree = new Tree(buildTree(arr));
+prettyPrint(tree.root);
 
-tree2.insert(100);
-tree2.insert(101);
-tree2.insert(102);
-tree2.insert(103);
-tree2.insert(104);
-tree2.insert(105);
-tree2.insert(19);
-tree2.insert(18);
-tree2.insert(17);
-tree2.insert(16);
-tree2.insert(15);
-tree2.insert(14);
-tree2.insert(13);
-prettyPrint(tree2.root);
-tree2.isBalanced();
+tree.isBalanced();
 
-// console.log(tree2.levelOrder());
-tree2.rebalance();
-tree2.insert(12);
-prettyPrint(tree2.root);
-tree2.isBalanced();
-// console.log(tree2.height(tree2.find(36)));
-// console.log(tree2.depth(tree2.find(75)));
+console.log(tree.levelOrder());
+console.log(tree.preOrder());
+console.log(tree.postOrder());
+console.log(tree.inOrder());
+
+tree.insert(101);
+tree.insert(102);
+tree.insert(103);
+tree.insert(104);
+tree.insert(105);
+prettyPrint(tree.root);
+
+tree.isBalanced();
+
+tree.rebalance();
+prettyPrint(tree.root);
+
+tree.isBalanced();
+
+console.log(tree.levelOrder());
+console.log(tree.preOrder());
+console.log(tree.postOrder());
+console.log(tree.inOrder());
